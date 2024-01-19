@@ -1,0 +1,36 @@
+﻿<Page x:Class="CursWork.Pages.UserP"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CursWork.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="850"
+      Title="UserP" Background="white">
+
+    <Grid>
+        <Button x:Name="AddBT" Content="AddFilm" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="124" Click="AddBT_Click"/>
+        <Button x:Name="EditBT" Content="Edit Film" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="124" ButtonBase.Click="EditBT_Click"/>
+        <Button x:Name="ExitBT" Content="Exit" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Width="124" ButtonBase.Click="ExitBT_Click"/>
+        <DataGrid  IsReadOnly="True" Name = "ItemListDG" AutoGenerateColumns="False"  Margin="156,10,10,10"  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding name}"  Width="110"/>
+                <DataGridTextColumn Header="country" Binding="{Binding country.name}"  Width="40"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding releaseDate}"  Width="100"/>
+                <DataGridTextColumn Header="Genre" Binding="{Binding genre.name}"  Width="75"/>
+                <DataGridTextColumn Header="Длит" Binding="{Binding duration}"  Width="75"/>
+                <DataGridTextColumn Header="Director" Binding="{Binding director.name}"  Width="100"/>
+                <DataGridTextColumn Header="Desriptions" Binding="{Binding description}"  Width="75"/>
+                <DataGridTextColumn Header="Rait" Binding="{Binding rating}"  Width="35"/>
+                <DataGridTextColumn Header="Cost" Binding="{Binding cost}"  Width="50"/>
+
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="AllBT" Content="Все жанры" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Width="124" Click="AllBT_Click"/>
+        <Button x:Name="DrammBT" Content="Драмма" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="124" Click="DrammBT_Click" />
+        <Button x:Name="CrimeBT" Content="Криминал" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" Width="124" Click="CrimeBT_Click"/>
+        <Button x:Name="FantasyBT" Content="Фэнтези" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top" Width="124" Click="FantasyBT_Click"/>
+
+    </Grid>
+</Page>

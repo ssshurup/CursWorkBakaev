@@ -1,0 +1,902 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Alias="Self" Namespace="Хранилище CursWorkModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012">
+        <EntityType Name="country">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="name" Nullable="false" MaxLength="20" Type="varchar" />
+        </EntityType>
+        <EntityType Name="director">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="name" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="rating" Type="int" />
+        </EntityType>
+        <EntityType Name="discount">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="discount" Type="int" />
+        </EntityType>
+        <EntityType Name="films">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="name" Nullable="false" MaxLength="20" Type="varchar" />
+          <Property Name="idCountry" Type="int" />
+          <Property Name="releaseDate" Type="date" />
+          <Property Name="idGenre" Type="int" />
+          <Property Name="duration" Nullable="false" MaxLength="20" Type="varchar" />
+          <Property Name="idDirector" Type="int" />
+          <Property Name="description" Nullable="false" MaxLength="255" Type="varchar" />
+          <Property Name="rating" Type="int" />
+          <Property Name="cost" Type="int" />
+        </EntityType>
+        <EntityType Name="genre">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="name" Nullable="false" MaxLength="20" Type="varchar" />
+        </EntityType>
+        <EntityType Name="hall">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="name" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="seats" Type="int" />
+          <Property Name="idType" Type="int" />
+        </EntityType>
+        <EntityType Name="schedule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="idFlim" Type="int" />
+          <Property Name="idSeans" Type="int" />
+          <Property Name="dateF" Type="int" />
+          <Property Name="idZal" Type="int" />
+        </EntityType>
+        <EntityType Name="sessions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="timeS" Precision="7" Type="time" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Nullable="false" MaxLength="128" Type="nvarchar" />
+          <Property Name="principal_id" Nullable="false" Type="int" />
+          <Property Name="diagram_id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tickets">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="idSchedule" Type="int" />
+          <Property Name="row" Type="int" />
+          <Property Name="place" Type="int" />
+          <Property Name="cost" Type="int" />
+          <Property Name="idDiscount" Type="int" />
+        </EntityType>
+        <EntityType Name="ticketUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="idTicket" Type="int" />
+          <Property Name="idUser" Type="int" />
+        </EntityType>
+        <EntityType Name="typeHall">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="name" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="defaultCost" Type="int" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="name" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="login" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="password" Nullable="false" MaxLength="50" Type="varchar" />
+        </EntityType>
+        <Association Name="FK_films_country">
+          <End Type="Self.country" Multiplicity="0..1" Role="country" />
+          <End Type="Self.films" Multiplicity="*" Role="films" />
+          <ReferentialConstraint>
+            <Principal Role="country">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="films">
+              <PropertyRef Name="idCountry" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_films_director">
+          <End Type="Self.director" Multiplicity="0..1" Role="director" />
+          <End Type="Self.films" Multiplicity="*" Role="films" />
+          <ReferentialConstraint>
+            <Principal Role="director">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="films">
+              <PropertyRef Name="idDirector" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_films_genre">
+          <End Type="Self.genre" Multiplicity="0..1" Role="genre" />
+          <End Type="Self.films" Multiplicity="*" Role="films" />
+          <ReferentialConstraint>
+            <Principal Role="genre">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="films">
+              <PropertyRef Name="idGenre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_hall_typeHall">
+          <End Type="Self.typeHall" Multiplicity="0..1" Role="typeHall" />
+          <End Type="Self.hall" Multiplicity="*" Role="hall" />
+          <ReferentialConstraint>
+            <Principal Role="typeHall">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="hall">
+              <PropertyRef Name="idType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_schedule_films">
+          <End Type="Self.films" Multiplicity="0..1" Role="films" />
+          <End Type="Self.schedule" Multiplicity="*" Role="schedule" />
+          <ReferentialConstraint>
+            <Principal Role="films">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="schedule">
+              <PropertyRef Name="idFlim" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_schedule_hall">
+          <End Type="Self.hall" Multiplicity="0..1" Role="hall" />
+          <End Type="Self.schedule" Multiplicity="*" Role="schedule" />
+          <ReferentialConstraint>
+            <Principal Role="hall">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="schedule">
+              <PropertyRef Name="idZal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_schedule_sessions">
+          <End Type="Self.sessions" Multiplicity="0..1" Role="sessions" />
+          <End Type="Self.schedule" Multiplicity="*" Role="schedule" />
+          <ReferentialConstraint>
+            <Principal Role="sessions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="schedule">
+              <PropertyRef Name="idSeans" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tickets_discount">
+          <End Type="Self.discount" Multiplicity="0..1" Role="discount" />
+          <End Type="Self.tickets" Multiplicity="*" Role="tickets" />
+          <ReferentialConstraint>
+            <Principal Role="discount">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="idDiscount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tickets_schedule">
+          <End Type="Self.schedule" Multiplicity="0..1" Role="schedule" />
+          <End Type="Self.tickets" Multiplicity="*" Role="tickets" />
+          <ReferentialConstraint>
+            <Principal Role="schedule">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="idSchedule" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ticketUser_tickets">
+          <End Type="Self.tickets" Multiplicity="0..1" Role="tickets" />
+          <End Type="Self.ticketUser" Multiplicity="*" Role="ticketUser" />
+          <ReferentialConstraint>
+            <Principal Role="tickets">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ticketUser">
+              <PropertyRef Name="idTicket" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ticketUser_users">
+          <End Type="Self.users" Multiplicity="0..1" Role="users" />
+          <End Type="Self.ticketUser" Multiplicity="*" Role="ticketUser" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ticketUser">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="Хранилище CursWorkModelContainer">
+          <EntitySet Name="country" EntityType="Self.country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="director" EntityType="Self.director" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="discount" EntityType="Self.discount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="films" EntityType="Self.films" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="genre" EntityType="Self.genre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="hall" EntityType="Self.hall" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="schedule" EntityType="Self.schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sessions" EntityType="Self.sessions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tickets" EntityType="Self.tickets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ticketUser" EntityType="Self.ticketUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="typeHall" EntityType="Self.typeHall" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_films_country" Association="Self.FK_films_country">
+            <End EntitySet="country" Role="country" />
+            <End EntitySet="films" Role="films" />
+          </AssociationSet>
+          <AssociationSet Name="FK_films_director" Association="Self.FK_films_director">
+            <End EntitySet="director" Role="director" />
+            <End EntitySet="films" Role="films" />
+          </AssociationSet>
+          <AssociationSet Name="FK_films_genre" Association="Self.FK_films_genre">
+            <End EntitySet="genre" Role="genre" />
+            <End EntitySet="films" Role="films" />
+          </AssociationSet>
+          <AssociationSet Name="FK_hall_typeHall" Association="Self.FK_hall_typeHall">
+            <End EntitySet="typeHall" Role="typeHall" />
+            <End EntitySet="hall" Role="hall" />
+          </AssociationSet>
+          <AssociationSet Name="FK_schedule_films" Association="Self.FK_schedule_films">
+            <End EntitySet="films" Role="films" />
+            <End EntitySet="schedule" Role="schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_schedule_hall" Association="Self.FK_schedule_hall">
+            <End EntitySet="hall" Role="hall" />
+            <End EntitySet="schedule" Role="schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_schedule_sessions" Association="Self.FK_schedule_sessions">
+            <End EntitySet="sessions" Role="sessions" />
+            <End EntitySet="schedule" Role="schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tickets_discount" Association="Self.FK_tickets_discount">
+            <End EntitySet="discount" Role="discount" />
+            <End EntitySet="tickets" Role="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tickets_schedule" Association="Self.FK_tickets_schedule">
+            <End EntitySet="schedule" Role="schedule" />
+            <End EntitySet="tickets" Role="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ticketUser_tickets" Association="Self.FK_ticketUser_tickets">
+            <End EntitySet="tickets" Role="tickets" />
+            <End EntitySet="ticketUser" Role="ticketUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ticketUser_users" Association="Self.FK_ticketUser_users">
+            <End EntitySet="users" Role="users" />
+            <End EntitySet="ticketUser" Role="ticketUser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CursWorkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="country">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="films" Relationship="Self.FK_films_country" FromRole="country" ToRole="films" />
+        </EntityType>
+        <EntityType Name="director">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rating" Type="Int32" />
+          <NavigationProperty Name="films" Relationship="Self.FK_films_director" FromRole="director" ToRole="films" />
+        </EntityType>
+        <EntityType Name="discount">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="discount1" Type="Int32" />
+          <NavigationProperty Name="tickets" Relationship="Self.FK_tickets_discount" FromRole="discount" ToRole="tickets" />
+        </EntityType>
+        <EntityType Name="films">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idCountry" Type="Int32" />
+          <Property Name="releaseDate" Type="DateTime" Precision="0" />
+          <Property Name="idGenre" Type="Int32" />
+          <Property Name="duration" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idDirector" Type="Int32" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rating" Type="Int32" />
+          <NavigationProperty Name="country" Relationship="Self.FK_films_country" FromRole="films" ToRole="country" />
+          <NavigationProperty Name="director" Relationship="Self.FK_films_director" FromRole="films" ToRole="director" />
+          <NavigationProperty Name="genre" Relationship="Self.FK_films_genre" FromRole="films" ToRole="genre" />
+          <NavigationProperty Name="schedule" Relationship="Self.FK_schedule_films" FromRole="films" ToRole="schedule" />
+          <Property Name="cost" Type="Int32" />
+        </EntityType>
+        <EntityType Name="genre">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="films" Relationship="Self.FK_films_genre" FromRole="genre" ToRole="films" />
+        </EntityType>
+        <EntityType Name="hall">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="seats" Type="Int32" />
+          <Property Name="idType" Type="Int32" />
+          <NavigationProperty Name="typeHall" Relationship="Self.FK_hall_typeHall" FromRole="hall" ToRole="typeHall" />
+          <NavigationProperty Name="schedule" Relationship="Self.FK_schedule_hall" FromRole="hall" ToRole="schedule" />
+        </EntityType>
+        <EntityType Name="schedule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idFlim" Type="Int32" />
+          <Property Name="idSeans" Type="Int32" />
+          <Property Name="dateF" Type="Int32" />
+          <Property Name="idZal" Type="Int32" />
+          <NavigationProperty Name="films" Relationship="Self.FK_schedule_films" FromRole="schedule" ToRole="films" />
+          <NavigationProperty Name="hall" Relationship="Self.FK_schedule_hall" FromRole="schedule" ToRole="hall" />
+          <NavigationProperty Name="sessions" Relationship="Self.FK_schedule_sessions" FromRole="schedule" ToRole="sessions" />
+          <NavigationProperty Name="tickets" Relationship="Self.FK_tickets_schedule" FromRole="schedule" ToRole="tickets" />
+        </EntityType>
+        <EntityType Name="sessions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="timeS" Type="Time" Precision="7" />
+          <NavigationProperty Name="schedule" Relationship="Self.FK_schedule_sessions" FromRole="sessions" ToRole="schedule" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tickets">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idSchedule" Type="Int32" />
+          <Property Name="row" Type="Int32" />
+          <Property Name="place" Type="Int32" />
+          <Property Name="cost" Type="Int32" />
+          <Property Name="idDiscount" Type="Int32" />
+          <NavigationProperty Name="discount" Relationship="Self.FK_tickets_discount" FromRole="tickets" ToRole="discount" />
+          <NavigationProperty Name="schedule" Relationship="Self.FK_tickets_schedule" FromRole="tickets" ToRole="schedule" />
+          <NavigationProperty Name="ticketUser" Relationship="Self.FK_ticketUser_tickets" FromRole="tickets" ToRole="ticketUser" />
+        </EntityType>
+        <EntityType Name="ticketUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="idTicket" Type="Int32" />
+          <Property Name="idUser" Type="Int32" />
+          <NavigationProperty Name="tickets" Relationship="Self.FK_ticketUser_tickets" FromRole="ticketUser" ToRole="tickets" />
+          <NavigationProperty Name="users" Relationship="Self.FK_ticketUser_users" FromRole="ticketUser" ToRole="users" />
+        </EntityType>
+        <EntityType Name="typeHall">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="defaultCost" Type="Int32" />
+          <NavigationProperty Name="hall" Relationship="Self.FK_hall_typeHall" FromRole="typeHall" ToRole="hall" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ticketUser" Relationship="Self.FK_ticketUser_users" FromRole="users" ToRole="ticketUser" />
+        </EntityType>
+        <Association Name="FK_films_country">
+          <End Role="country" Type="Self.country" Multiplicity="0..1" />
+          <End Role="films" Type="Self.films" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="country">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="films">
+              <PropertyRef Name="idCountry" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_films_director">
+          <End Role="director" Type="Self.director" Multiplicity="0..1" />
+          <End Role="films" Type="Self.films" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="director">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="films">
+              <PropertyRef Name="idDirector" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tickets_discount">
+          <End Role="discount" Type="Self.discount" Multiplicity="0..1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="discount">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="idDiscount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_films_genre">
+          <End Role="genre" Type="Self.genre" Multiplicity="0..1" />
+          <End Role="films" Type="Self.films" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genre">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="films">
+              <PropertyRef Name="idGenre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_schedule_films">
+          <End Role="films" Type="Self.films" Multiplicity="0..1" />
+          <End Role="schedule" Type="Self.schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="films">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="schedule">
+              <PropertyRef Name="idFlim" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_hall_typeHall">
+          <End Role="typeHall" Type="Self.typeHall" Multiplicity="0..1" />
+          <End Role="hall" Type="Self.hall" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typeHall">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="hall">
+              <PropertyRef Name="idType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_schedule_hall">
+          <End Role="hall" Type="Self.hall" Multiplicity="0..1" />
+          <End Role="schedule" Type="Self.schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hall">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="schedule">
+              <PropertyRef Name="idZal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_schedule_sessions">
+          <End Role="sessions" Type="Self.sessions" Multiplicity="0..1" />
+          <End Role="schedule" Type="Self.schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sessions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="schedule">
+              <PropertyRef Name="idSeans" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tickets_schedule">
+          <End Role="schedule" Type="Self.schedule" Multiplicity="0..1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="schedule">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="idSchedule" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ticketUser_tickets">
+          <End Type="Self.tickets" Multiplicity="0..1" Role="tickets" />
+          <End Type="Self.ticketUser" Multiplicity="*" Role="ticketUser" />
+          <ReferentialConstraint>
+            <Principal Role="tickets">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ticketUser">
+              <PropertyRef Name="idTicket" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ticketUser_users">
+          <End Type="Self.users" Multiplicity="0..1" Role="users" />
+          <End Type="Self.ticketUser" Multiplicity="*" Role="ticketUser" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ticketUser">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CursWorkEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="country" EntityType="Self.country" />
+          <EntitySet Name="director" EntityType="Self.director" />
+          <EntitySet Name="discount" EntityType="Self.discount" />
+          <EntitySet Name="films" EntityType="Self.films" />
+          <EntitySet Name="genre" EntityType="Self.genre" />
+          <EntitySet Name="hall" EntityType="Self.hall" />
+          <EntitySet Name="schedule" EntityType="Self.schedule" />
+          <EntitySet Name="sessions" EntityType="Self.sessions" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="tickets" EntityType="Self.tickets" />
+          <EntitySet Name="ticketUser" EntityType="Self.ticketUser" />
+          <EntitySet Name="typeHall" EntityType="Self.typeHall" />
+          <EntitySet Name="users" EntityType="Self.users" />
+          <AssociationSet Name="FK_films_country" Association="Self.FK_films_country">
+            <End Role="country" EntitySet="country" />
+            <End Role="films" EntitySet="films" />
+          </AssociationSet>
+          <AssociationSet Name="FK_films_director" Association="Self.FK_films_director">
+            <End Role="director" EntitySet="director" />
+            <End Role="films" EntitySet="films" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tickets_discount" Association="Self.FK_tickets_discount">
+            <End Role="discount" EntitySet="discount" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_films_genre" Association="Self.FK_films_genre">
+            <End Role="genre" EntitySet="genre" />
+            <End Role="films" EntitySet="films" />
+          </AssociationSet>
+          <AssociationSet Name="FK_schedule_films" Association="Self.FK_schedule_films">
+            <End Role="films" EntitySet="films" />
+            <End Role="schedule" EntitySet="schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_hall_typeHall" Association="Self.FK_hall_typeHall">
+            <End Role="typeHall" EntitySet="typeHall" />
+            <End Role="hall" EntitySet="hall" />
+          </AssociationSet>
+          <AssociationSet Name="FK_schedule_hall" Association="Self.FK_schedule_hall">
+            <End Role="hall" EntitySet="hall" />
+            <End Role="schedule" EntitySet="schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_schedule_sessions" Association="Self.FK_schedule_sessions">
+            <End Role="sessions" EntitySet="sessions" />
+            <End Role="schedule" EntitySet="schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tickets_schedule" Association="Self.FK_tickets_schedule">
+            <End Role="schedule" EntitySet="schedule" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ticketUser_tickets" Association="Self.FK_ticketUser_tickets">
+            <End EntitySet="tickets" Role="tickets" />
+            <End EntitySet="ticketUser" Role="ticketUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ticketUser_users" Association="Self.FK_ticketUser_users">
+            <End EntitySet="users" Role="users" />
+            <End EntitySet="ticketUser" Role="ticketUser" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Type="String" Mode="In" />
+            <Parameter Name="owner_id" Type="Int32" Mode="In" />
+            <Parameter Name="version" Type="Int32" Mode="In" />
+            <Parameter Name="definition" Type="Binary" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Type="String" Mode="In" />
+            <Parameter Name="owner_id" Type="Int32" Mode="In" />
+            <Parameter Name="version" Type="Int32" Mode="In" />
+            <Parameter Name="definition" Type="Binary" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Type="String" Mode="In" />
+            <Parameter Name="owner_id" Type="Int32" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(CursWorkModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Type="String" Mode="In" />
+            <Parameter Name="owner_id" Type="Int32" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(CursWorkModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Type="String" Mode="In" />
+            <Parameter Name="owner_id" Type="Int32" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Type="String" Mode="In" />
+            <Parameter Name="owner_id" Type="Int32" Mode="In" />
+            <Parameter Name="new_diagramname" Type="String" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище CursWorkModelContainer" CdmEntityContainer="CursWorkEntities">
+          <EntitySetMapping Name="country">
+            <EntityTypeMapping TypeName="CursWorkModel.country">
+              <MappingFragment StoreEntitySet="country">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="director">
+            <EntityTypeMapping TypeName="CursWorkModel.director">
+              <MappingFragment StoreEntitySet="director">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="discount">
+            <EntityTypeMapping TypeName="CursWorkModel.discount">
+              <MappingFragment StoreEntitySet="discount">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="discount1" ColumnName="discount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="films">
+            <EntityTypeMapping TypeName="CursWorkModel.films">
+              <MappingFragment StoreEntitySet="films">
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="idCountry" ColumnName="idCountry" />
+                <ScalarProperty Name="releaseDate" ColumnName="releaseDate" />
+                <ScalarProperty Name="idGenre" ColumnName="idGenre" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="idDirector" ColumnName="idDirector" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="genre">
+            <EntityTypeMapping TypeName="CursWorkModel.genre">
+              <MappingFragment StoreEntitySet="genre">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hall">
+            <EntityTypeMapping TypeName="CursWorkModel.hall">
+              <MappingFragment StoreEntitySet="hall">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="seats" ColumnName="seats" />
+                <ScalarProperty Name="idType" ColumnName="idType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="schedule">
+            <EntityTypeMapping TypeName="CursWorkModel.schedule">
+              <MappingFragment StoreEntitySet="schedule">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idFlim" ColumnName="idFlim" />
+                <ScalarProperty Name="idSeans" ColumnName="idSeans" />
+                <ScalarProperty Name="dateF" ColumnName="dateF" />
+                <ScalarProperty Name="idZal" ColumnName="idZal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sessions">
+            <EntityTypeMapping TypeName="CursWorkModel.sessions">
+              <MappingFragment StoreEntitySet="sessions">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="timeS" ColumnName="timeS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CursWorkModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tickets">
+            <EntityTypeMapping TypeName="CursWorkModel.tickets">
+              <MappingFragment StoreEntitySet="tickets">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idSchedule" ColumnName="idSchedule" />
+                <ScalarProperty Name="row" ColumnName="row" />
+                <ScalarProperty Name="place" ColumnName="place" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="idDiscount" ColumnName="idDiscount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ticketUser">
+            <EntityTypeMapping TypeName="CursWorkModel.ticketUser">
+              <MappingFragment StoreEntitySet="ticketUser">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idTicket" ColumnName="idTicket" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="typeHall">
+            <EntityTypeMapping TypeName="CursWorkModel.typeHall">
+              <MappingFragment StoreEntitySet="typeHall">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="defaultCost" ColumnName="defaultCost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="CursWorkModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище CursWorkModel.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище CursWorkModel.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище CursWorkModel.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище CursWorkModel.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CursWorkModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище CursWorkModel.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CursWorkModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище CursWorkModel.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище CursWorkModel.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

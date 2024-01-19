@@ -1,0 +1,43 @@
+﻿<Page x:Class="CursWork.Pages.EditP"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CursWork.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="EditP" Background="White">
+
+    <Grid>
+        <TextBox x:Name="NameTB" Text="{Binding name}" HorizontalAlignment="Left" Margin="378,57,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="294,59,0,0" TextWrapping="Wrap" Text="Name Film" VerticalAlignment="Top"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="294,85,0,0" TextWrapping="Wrap" Text="Country" VerticalAlignment="Top"/>
+        <ComboBox x:Name="CountryCB" SelectedItem="{Binding country}" DisplayMemberPath="name" HorizontalAlignment="Left" Margin="378,81,0,0" VerticalAlignment="Top" Width="120"/>
+
+        <TextBox x:Name="DateTB" HorizontalAlignment="Left" Margin="378,111,0,0" TextWrapping="Wrap" Text="{Binding releaseDate}" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="294,112,0,0" TextWrapping="Wrap" Text="DateRelease" VerticalAlignment="Top"/>
+
+        <ComboBox x:Name="GenreCB" SelectedItem="{Binding genre}" DisplayMemberPath="name" HorizontalAlignment="Left" Margin="378,149,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="294,153,0,0" TextWrapping="Wrap" Text="Genre" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="DurationTB" HorizontalAlignment="Left" Margin="378,178,0,0" TextWrapping="Wrap" Text="{Binding duration}" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="294,179,0,0" TextWrapping="Wrap" Text="Duration" VerticalAlignment="Top"/>
+
+        <ComboBox x:Name="DirectorCB" SelectedItem="{Binding director}" DisplayMemberPath="name" HorizontalAlignment="Left" Margin="378,202,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="294,206,0,0" TextWrapping="Wrap" Text="Director" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="DescriptionTB" HorizontalAlignment="Left" Margin="378,231,0,0" TextWrapping="Wrap" Text="{Binding description}" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="294,233,0,0" TextWrapping="Wrap" Text="Description" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="RatingTB" HorizontalAlignment="Left" Margin="378,253,0,0" TextWrapping="Wrap" Text="{Binding rating}" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="294,254,0,0" TextWrapping="Wrap" Text="Rating" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="CostTB" HorizontalAlignment="Left" Margin="378,276,0,0" TextWrapping="Wrap" Text="{Binding cost}" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="294,278,0,0" TextWrapping="Wrap" Text="Cost" VerticalAlignment="Top"/>
+
+        <Button x:Name="EditBT" Content="EditFilm" HorizontalAlignment="Left" Margin="294,299,0,0" VerticalAlignment="Top" Width="126" Click="EditBT_Click"/>
+        <Button x:Name="BackBT" Content="Back" HorizontalAlignment="Left" Margin="425,299,0,0" VerticalAlignment="Top" Width="73" Click="BackBT_Click"/>
+      
+    </Grid>
+</Page>
